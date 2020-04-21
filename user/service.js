@@ -4,15 +4,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 module.exports = {
-  async getJobPositions(pageSize, currentPage) {
-    const expirationDate = getExpirationDate()
-    const queryResult = await repository.findValidJobPositions(expirationDate, pageSize, currentPage)
-    queryResult.documents = queryResult.documents.map(cleanJobPosition)
-    return queryResult
-  },
-
-  async addUser(user) {   
-       
+ 
+  async addUser(user) {       
     const validationResult = validate(user)
     let userFound = await repository.findByEmail(user.email)
     
@@ -20,7 +13,6 @@ module.exports = {
       throw {message: "Essa porra ja foi cadastrada meu irmão", error: "User already exists"};
     }
     
-
     if (validationResult.error) {
       throw validationResult.error
     }
