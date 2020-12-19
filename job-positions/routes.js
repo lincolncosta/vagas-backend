@@ -1,6 +1,7 @@
 const express = require('express')
 const jobPositionService = require('./service.js')
 const bodyParser = require('body-parser')
+const auth = require('../middleware/auth.js');
 
 const app = express()
 app.use(bodyParser.json())
@@ -24,6 +25,16 @@ app
       const headers = {...req.headers, ip }
       const result = await jobPositionService.addJobPoisition(jobPosition, headers)
       res.json(result)
+    } catch(e) {
+      console.error(e)
+      res.status(406).json({error: e.message, ...e})
+    }
+  })
+  //update job position flag to display (enabled/disabled) with authentication middleware
+  .patch('/', auth, async(req, res) => {
+    try {
+      //TODO: Fazer esta porra
+      
     } catch(e) {
       console.error(e)
       res.status(406).json({error: e.message, ...e})
